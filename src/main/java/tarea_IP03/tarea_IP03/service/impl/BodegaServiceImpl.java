@@ -6,7 +6,7 @@ import tarea_IP03.tarea_IP03.dto.request.BodegaRequestDTO;
 import tarea_IP03.tarea_IP03.dto.response.BodegaResponseDTO;
 import tarea_IP03.tarea_IP03.exception.ValidacionException;
 import tarea_IP03.tarea_IP03.model.entity.Bodega;
-import tarea_IP03.tarea_IP03.repository.BodegaRepository;
+import tarea_IP03.tarea_IP03.repository.BodegaRepositoty;
 import tarea_IP03.tarea_IP03.service.BodegaService;
 
 import java.math.BigDecimal;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BodegaServiceImpl implements BodegaService {
 
-    private final BodegaRepository bodegaRepository;
+    private final BodegaRepositoty bodegaRepository;
 
     // Constantes del negocio (Reglas del examen)
     private static final double TASA_IGV = 0.18;

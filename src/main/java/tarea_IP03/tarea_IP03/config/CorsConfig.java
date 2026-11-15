@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     @Override
-    public void addCorsMappings(CorsRegisty registry){
+    public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**") //Aplica la configuracion a todos los endpoints de la API
                 .allowedOrigins(
                         "http://localhost:5173", //Origen de desarrollo de React/Vite

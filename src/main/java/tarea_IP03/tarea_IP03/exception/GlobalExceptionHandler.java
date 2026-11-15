@@ -15,7 +15,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 1. Captura los errores de validación de las anotaciones del DTO (@NotBlank, @Min, etc.)
+    // Captura los errores de validacion
+    // Devolver HTTP 400 Bad Request con un mapa de los campos que fallaron el mensaje
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException
     (MethodArgumentNotValidException ex, HttpServletRequest request){
@@ -34,21 +35,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // 2. Captura TU excepción personalizada del examen (ValidacionException)
-    @ExceptionHandler(ValidacionException.class)
-    public ResponseEntity<ErrorResponse> handleValidacionException
-    (ValidacionException ex, HttpServletRequest request){
-        ErrorResponse response = ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .status(HttpStatus.BAD_REQUEST.value())
-                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .message(ex.getMessage()) // Aquí irá tu mensaje personalizado
-                .path(request.getRequestURI())
-                .build();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-    }
-
-    // 3. Captura errores de argumentos (Se mantiene de tu otro proyecto por si acaso)
+    // Captura errores de argumentos o reglas del negocio (ej: cantidad menor a 0)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException
     (IllegalArgumentException ex, HttpServletRequest request){
@@ -61,4 +48,5 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
 }

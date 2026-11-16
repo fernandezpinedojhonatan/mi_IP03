@@ -17,19 +17,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Datos de entrada para calcular el monto final de una venta")
+@Schema(description = "Datos de entrada para calcular la venta")
 public class BodegaRequestDTO {
 
-    @Schema(description = "Nombre del producto", example = "Televisor LG 55\"")
-    @NotBlank(message = "El nombre del producto es obligatorio y no puede estar vacío")
+    @Schema(description = "Nombre del producto", example = "Televisor LG")
+    @NotBlank(message = "El producto es obligatorio y no puede estar vacío")
     private String producto;
 
-    @Schema(description = "Cantidad de productos a comprar", example = "2")
+    @Schema(description = "Cantidad de productos", example = "2")
     @NotNull(message = "La cantidad es obligatoria")
     @Min(value = 1, message = "La cantidad debe ser mayor a 0")
     private Integer cantidad;
 
-    @Schema(description = "Precio unitario del producto (sin IGV)", example = "300.00")
+    @Schema(description = "Precio unitario sin IGV", example = "300.00")
     @NotNull(message = "El precio unitario es obligatorio")
     @Positive(message = "El precio unitario debe ser mayor a 0")
     private Double precioUnitario;

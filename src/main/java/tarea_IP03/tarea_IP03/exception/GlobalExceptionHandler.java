@@ -15,13 +15,10 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Captura los errores de validacion
-    // Devolver HTTP 400 Bad Request con un mapa de los campos que fallaron el mensaje
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationException
-    (MethodArgumentNotValidException ex, HttpServletRequest request){
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex, HttpServletRequest request) {
         Map<String, String> errors = new HashMap<>();
-        for(FieldError fieldError : ex.getBindingResult().getFieldErrors()){
+        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
         ErrorResponse response = ErrorResponse.builder()
@@ -35,10 +32,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // Captura errores de argumentos o reglas del negocio (ej: cantidad menor a 0)
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException
-    (IllegalArgumentException ex, HttpServletRequest request){
+    @ExceptionHandler(ValidacionException.class)
+    public ResponseEntity<ErrorResponse> handleValidacionException(ValidacionException ex, HttpServletRequest request) {
         ErrorResponse response = ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -49,4 +44,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request) {
+        ErrorResponse response = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 }

@@ -1,4 +1,4 @@
-package com.todobarato.pcl.todobarato.model.entity;
+package tarea_IP03.tarea_IP03.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -19,10 +19,9 @@ public abstract class Auditable {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt; // Corregido a camelCase
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt; // Corregido a camelCase
-
+    private LocalDateTime updatedAt;
 }

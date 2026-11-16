@@ -13,9 +13,6 @@ public interface BodegaService {
     // GET: Listar todas las ventas
     List<BodegaResponseDTO> listarTodos();
 
-    // GET: Buscar una venta por su ID
-    BodegaResponseDTO buscarPorId(Long id);
-
     // PUT: Actualizar (recalcular) una venta existente
     BodegaResponseDTO actualizar(Long id, BodegaRequestDTO request);
 

@@ -33,12 +33,6 @@ public class BodegaController {
         return ResponseEntity.ok(bodegaService.listarTodos());
     }
 
-    @Operation(summary = "Buscar venta por ID")
-    @GetMapping("/{id}")
-    public ResponseEntity<BodegaResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(bodegaService.buscarPorId(id));
-    }
-
     @Operation(summary = "Actualizar venta")
     @PutMapping("/{id}")
     public ResponseEntity<BodegaResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody BodegaRequestDTO request) {

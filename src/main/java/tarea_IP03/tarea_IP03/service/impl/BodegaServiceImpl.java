@@ -38,13 +38,6 @@ public class BodegaServiceImpl implements BodegaService {
     }
 
     @Override
-    public BodegaResponseDTO buscarPorId(Long id) {
-        Bodega bodega = bodegaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No existe venta con id: " + id));
-        return mapToResponseDTO(bodega);
-    }
-
-    @Override
     public BodegaResponseDTO actualizar(Long id, BodegaRequestDTO request) {
         validarRequest(request);
         Bodega bodegaExistente = bodegaRepository.findById(id)

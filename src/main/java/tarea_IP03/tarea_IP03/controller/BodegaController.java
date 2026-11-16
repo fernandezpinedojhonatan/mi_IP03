@@ -21,28 +21,32 @@ public class BodegaController {
 
     private final BodegaService bodegaService;
 
-    @Operation(summary = "Calcular venta")
-    @PostMapping("/calcular")
-    public ResponseEntity<BodegaResponseDTO> calcularVenta(@Valid @RequestBody BodegaRequestDTO request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(bodegaService.calcular(request));
-    }
-
+    // 1. GET (Listar)
     @Operation(summary = "Listar ventas")
     @GetMapping
     public ResponseEntity<List<BodegaResponseDTO>> listarTodos() {
         return ResponseEntity.ok(bodegaService.listarTodos());
     }
 
-    @Operation(summary = "Actualizar venta")
-    @PutMapping("/{id}")
-    public ResponseEntity<BodegaResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody BodegaRequestDTO request) {
-        return ResponseEntity.ok(bodegaService.actualizar(id, request));
+    // 2. POST (Calcular)
+    @Operation(summary = "Calcular venta")
+    @PostMapping("/calcular")
+    public ResponseEntity<BodegaResponseDTO> calcularVenta(@Valid @RequestBody BodegaRequestDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(bodegaService.calcular(request));
     }
 
+    // 3. DELETE (Eliminar)
     @Operation(summary = "Eliminar venta")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         bodegaService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // 4. PUT (Actualizar)
+    @Operation(summary = "Actualizar venta")
+    @PutMapping("/{id}")
+    public ResponseEntity<BodegaResponseDTO> actualizar(@PathVariable Long id, @Valid @RequestBody BodegaRequestDTO request) {
+        return ResponseEntity.ok(bodegaService.actualizar(id, request));
     }
 }
